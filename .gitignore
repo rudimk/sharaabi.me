@@ -2,6 +2,9 @@
 __pycache__/
 *.py[cod]
 .DS_Store
+static/.DS_Store
+templates/.DS_Store
+drunk-db/
 # C extensions
 *.so
 
