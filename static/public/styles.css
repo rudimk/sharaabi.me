@@ -115,7 +115,7 @@ img.grayscale {
 }
 
 .header {
-  background: #f68076 url(file:///C|/snehal/work/daaru/New%20folder/images/heroimage.jpg) repeat center center fixed;
+  background: #f68076 url(../heroimage.jpg) repeat center center fixed;
 }
 
 /* use alt in navbar and header for different color */
@@ -226,7 +226,7 @@ img.grayscale {
 }
 
 .profsec {
-	background:url(../images/bottles.jpg) no-repeat bottom center;
+	background:url(../bottles.jpg) no-repeat bottom center;
 	padding-bottom: 15em;
 }
 
