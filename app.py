@@ -63,6 +63,7 @@ def signup_view():
 		password_hash = hashlib.sha224(user_password).hexdigest()
 		user_created_at = datetime.datetime.now()
 		new_user = User({'name':user_name, 'email':user_email, 'password':password_hash, 'created_at':user_created_at, 'push_subscriber_id':''})
+		new_user.groups = []
 		backend.save(new_user)
 		backend.commit()
 		session["user_id"] = new_user.pk
@@ -94,6 +95,49 @@ def login_view():
 def logout_view():
 	session["user_id"] = None
 	return redirect('/')
+
+
+@app.route('/groups/create', methods=['GET', 'POST'])
+def group_create_view():
+	if request.method == 'POST':
+		group_name = request.form['groupname']
+		group_member_1 = request.form['email1']
+		group_member_2 = request.form['email2']
+		group_member_3 = request.form['email3']
+		group_member_4 = request.form['email4']
+		group_owner = session["user_id"]
+		new_group = Group({'name':group_name, 'group_owner':group_owner})
+		new_group.users = []
+		try:
+			g_m_1 = backend.get(User, {'email':group_member_1})
+			new_group.users.append(g_m_1)
+			g_m_1.groups.append[new_group]
+		except User.DoesNotExist:
+			# Send a link to this email to sign up and join the group.
+			pass
+		try:
+			g_m_2 = backend.get(User, {'email':group_member_2})
+			new_group.users.append(g_m_2)
+		except User.DoesNotExist:
+			# Send a link to this email to sign up and join the group.
+			pass
+		try:
+			g_m_3 = backend.get(User, {'email':group_member_3})
+			new_group.users.append(g_m_3)
+		except User.DoesNotExist:
+			# Send a link to this email to sign up and join the group.
+			pass
+		try:
+			g_m_4 = backend.get(User, {'email':group_member_4})
+			new_group.users.append(g_m_4)
+		except User.DoesNotExist:
+			# Send a link to this email to sign up and join the group.
+			pass
+		backend.save(new_group)
+		backend.commit()
+		return redirect('/sessions/new')
+	return render_template('create-group.html')
+
 
 if __name__ == '__main__':
 	app.run(host='0.0.0.0', port=8500, debug=True)
